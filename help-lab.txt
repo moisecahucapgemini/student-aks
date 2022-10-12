@@ -1,4 +1,4 @@
-Pour ce connecter a la vm je conseil le WSL
+Pour ce connecter a la vm linux je conseil le WSL
 utiliser ceci pour les problemes de droits :
 sudo -u nobody ssh -i <path to identity file> <ssh server>
 
