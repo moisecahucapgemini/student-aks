@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: XXXX
+  namespace: XXXX
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: XXXX
+  namespace: XXXX
+type: XXXX
+data:
+  MYSQL_ROOT_PASSWORD: bXlzcWwxMjM0
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: XXXX
+  namespace: wordpress
+  labels:
+    app: XXXX
+spec:
+  replicas: XXXX
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: database
+        image: mysql:5.7
+        args:
+          # mount volume
+          - "--ignore-db-dir=lost+found"
+        # add root password
+        envFrom:
+          - secretRef:
+              name: XXXX
+        ports:
+          - containerPort: XXXX
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: wordpress
+spec:
+  ports:
+  - port: XXXX
+    protocol: XXXX
+  selector:
+    app: XXXX
